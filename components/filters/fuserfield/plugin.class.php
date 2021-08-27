@@ -46,7 +46,7 @@ class plugin_fuserfield extends plugin_base {
     }
 
     private function execute_sql($finalelements, $data) {
-        $filterfuserfield = optional_param('filter_fuserfield_'.$data->field, 0, PARAM_BASE64);
+        $filterfuserfield = optional_param('filter_fuserfield_'.$data->field, 0, PARAM_RAW);
         $filter = base64_decode($filterfuserfield);
 
         if ($filterfuserfield) {
@@ -164,7 +164,7 @@ class plugin_fuserfield extends plugin_base {
         }
 
         $mform->addElement('select', 'filter_fuserfield_'.$data->field, $selectname, $filteroptions);
-        $mform->setType('filter_fuserfield_'.$data->field, PARAM_BASE64);
+        $mform->setType('filter_fuserfield_'.$data->field, PARAM_RAW);
     }
 
     private function sql_replace($filtersearchtext, $filterstrmatch, $finalelements) {
