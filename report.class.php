@@ -346,11 +346,11 @@ abstract class report_base {
                     foreach ($val as $k => $v) {
                         $k = s(clean_param($k, PARAM_CLEANHTML));
                         $v = s(clean_param($v, PARAM_CLEANHTML));
-                        $wwwpath .= "&amp;{$key}[$k]=" . $v;
+                        $wwwpath .= "&{$key}[$k]=" . $v;
                     }
                 } else {
                     $val = clean_param($val, PARAM_CLEANHTML);
-                    $wwwpath .= "&amp;$key=" . s($val);
+                    $wwwpath .= "&$key=" . s($val);
                 }
             }
         }
@@ -369,7 +369,7 @@ abstract class report_base {
                 }
 
                 // TODO Use moodle_url.
-                $output .= '<a href="' . s($wwwpath) . '&amp;download=1&amp;format=' . s($e) . '">
+                $output .= '<a href="' . s($wwwpath) . '&download=1&format=' . s($e) . '">
                                     <img src="' . $CFG->wwwroot . '/blocks/configurable_reports/export/' . s($e) . '/pix.gif"
                                      alt="' . s($e) . '">
                                     &nbsp;' . (s(strtoupper($e))) .
