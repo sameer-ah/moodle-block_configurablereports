@@ -66,7 +66,6 @@ if (!$reportclass->check_permissions($USER->id, $context)) {
 
 $components = cr_unserialize($report->components);
 $graphs = $components['plot']['elements'];
-
 if (!empty($graphs)) {
     $series = [];
     foreach ($graphs as $g) {
@@ -80,7 +79,6 @@ if (!empty($graphs)) {
     }
 
     if ($g['id'] == $id) {
-
         $min = optional_param('min', 0, PARAM_INT);
         $max = optional_param('max', 0, PARAM_INT);
         $abcise = optional_param('abcise', -1, PARAM_INT);
@@ -98,10 +96,16 @@ if (!empty($graphs)) {
         // Dataset definition.
         $dataset = new pData;
         $lastid = 0;
+
         foreach ($series as $key => $val) {
-            $dataset->AddPoint($val['serie'], "Serie$key");
-            $dataset->AddAllSeries("Serie$key");
-            $lastid = $key;
+
+            try {
+                $dataset->AddPoint($val['serie'], "Serie$key");
+                $dataset->AddAllSeries();
+                $lastid = $key;
+            } catch (Throwable $e) {
+                continue;
+            }
         }
 
         if (!empty($abciselabel)) {
@@ -114,6 +118,11 @@ if (!empty($graphs)) {
 
         foreach ($series as $key => $val) {
             $value = $val['name'];
+
+            if (!is_countable($value)) {
+                continue;
+            }
+
             $ishebrew = preg_match("/[\xE0-\xFA]/", iconv("UTF-8", "ISO-8859-8", $value));
             $fixedvalue = ($ishebrew == 1) ? $reportclass->utf8_strrev($value) : $value;
             $dataset->SetSerieName($fixedvalue, "Serie$key");
