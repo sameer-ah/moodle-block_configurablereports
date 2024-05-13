@@ -76,7 +76,6 @@ if (!empty($graphs)) {
     }
 
     if ($g['id'] == $id) {
-        //
         require_once($CFG->dirroot . "/blocks/configurable_reports/lib/pChart2/class/pDraw.php");
         require_once($CFG->dirroot . "/blocks/configurable_reports/lib/pChart2/class/pData.php");
         require_once($CFG->dirroot . "/blocks/configurable_reports/lib/pChart2/class/pColor.php");
@@ -139,7 +138,7 @@ if (!empty($graphs)) {
         $mypicture->setFontProperties([
             "FontName" => "$fontpath/Cairo-Regular.ttf",
             "FontSize" => $fontsize,
-            "Color" => new \pChart\pColor(0 , 0 , 0),
+            "Color" => new \pChart\pColor(0, 0, 0),
         ]);
 
         [$legendwidth, $legendheight] = array_values($mypicture->getLegendSize());
@@ -180,9 +179,9 @@ if (!empty($graphs)) {
             "DisplayOffset" => 5,
             "DrawSubTicks" => true,
         ];
-        /* Draw the chart */
-        $pCharts = new \pChart\pCharts($mypicture);
-        $pCharts->drawBarChart($chartsettings);
+
+        $pcharts = new \pChart\pCharts($mypicture);
+        $pcharts->drawBarChart($chartsettings);
 
         $mypicture->setShadow(false);
         $mypicture->drawLegend($legendx, $legendy);
