@@ -29,8 +29,7 @@
  * @return void
  */
 function cr_print_js_function() {
-    ?>
-    <script>
+    echo '<script>
         function printDiv(id) {
             let cdiv, tmpw;
 
@@ -38,9 +37,9 @@ function cr_print_js_function() {
             tmpw = window.open(" ", "Print");
 
             tmpw.document.open();
-            tmpw.document.write('<html><body>');
+            tmpw.document.write(\'<html><body>\');
             tmpw.document.write(cdiv.innerHTML);
-            tmpw.document.write('</body></html>');
+            tmpw.document.write(\'</body></html>\');
             tmpw.document.close();
 
             setTimeout(function() {
@@ -48,8 +47,7 @@ function cr_print_js_function() {
                 tmpw.close();
             }, 1000);
         }
-    </script>
-    <?php
+    </script>';
 }
 
 /**
