@@ -593,6 +593,8 @@ function cr_import_xml(string $xml, object $course) {
 
                 if (array_key_exists('customsql', $tempcomponents)) {
 
+                    // Set current courseid.
+                    $tempcomponents['customsql']['config']->courseid = $course->id;
                     $querysql = str_replace(["\'", '\"'], ["'", '"'], $tempcomponents['customsql']['config']->querysql);
                     $tempcomponents['customsql']['config']->querysql = $querysql;
                 }
